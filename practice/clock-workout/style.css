@@ -1,0 +1,45 @@
+* {
+  box-sizing: border-box;
+}
+
+html {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 18px;
+}
+
+body {
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+}
+
+.clock {
+  display: flex;
+  align-items: center;
+}
+
+.separator {
+  font-size: 400%;
+  margin-bottom: 0.5rem;
+}
+
+.control {
+  display: flex;
+  flex-flow: column nowrap;
+}
+
+.digits {
+  text-align: center;
+  font-size: 400%;
+  margin: 0.5rem;
+}
+
+.hours {
+  font-weight: 700;
+}
+
+.minutes {
+  font-weight: 300;
+}
