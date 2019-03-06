@@ -12,10 +12,23 @@ class Card  {
         <div class="card-body">
             <h4 class="card-title">${this.title}</h4>
             <p class="card-text">${this.body}</p>
+            <a href="#" class="edit card-link" data-id="${this.id}">
+                <i class="fa fa-pencil"></i>
+            </a>
+            <a href="#" class="delete card-link" data-id="${this.id}">
+                <i class="fa fa-remove"></i>
+            </a>
         </div>
         `;
 
+        let deletePost = this.element.querySelector('.delete');
+        deletePost.addEventListener('click', this.deletePostHandler);
+
         return this.element;
+    }
+
+    deletePostHandler() {
+        
     }
 
     mount(parent) {
