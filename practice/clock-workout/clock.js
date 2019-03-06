@@ -1,84 +1,74 @@
-const clockUpdate = (clock) => {
-  hoursDigits = document.querySelector('#digits-hours');
-  minutesDigits = document.querySelector('#digits-minutes');
-
-  hoursDigits.innerHTML = clock.hours;
-  minutesDigits.innerHTML = clock.minutes;
-}
-const clockControls = document.querySelector('.clock');
-
-let amPm = document.createElement('div');
-amPm.textContent = 'Am';
-let changeAmpm = document.createElement('button');
-changeAmpm.textContent = 'Set Am Pm'
-clockControls.appendChild(changeAmpm);
-clockControls.appendChild(amPm);
-
-let counter = 0;
-changeAmpm.addEventListener('click', ()=> {
-  if(counter % 2) {
-    amPm.textContent = 'AM'
-  } else {
-    amPm.textContent = 'PM';
-  }
-  counter ++;
-  console.log(counter);
-})
-
-
-document.addEventListener('DOMContentLoaded', () => {
-  let clock = {
-    hours: 10,
-    minutes: 2
+class Clock {
+  constructor (hours, minutes, seconds){
+    this.hours = hours;
+    this.minutes = minutes;
+    this.seconds = seconds;
   }
 
-  clockUpdate(clock);
 
-  
-    clockControls.addEventListener('click', e => {
+  render () {
+    this.element = document.createElement('div');
+    this.element.className = 'clock';
+    this.element.innerHTML = `
+        <div class="clock">
+          <div class="control">
+            <button id="btn-hours-up" class="digit-btn">+</button>
+            <div id="digits-hours" class="digits hours">${this.hours}</div>
+            <button id="btn-hours-down" class="digit-btn">-</button>
+          </div>
+          <div class="separator">:</div>
+          <div class="control">
+            <button id="btn-minutes-up" class="digit-btn">+</button>
+            <div id="digits-minutes" class="digits minutes">${this.minutes}</div>
+            <button id="btn-minutes-down" class="digit-btn">-</button>
+          </div>
+          <div class="separator">:</div>
+          <div class="control">
+            <div id="digits-seconds" class="digits minutes">${this.seconds}</div>
+          </div>
+          <button class="startTimer">Start Timer</button> 
+        </div>
+    `;
 
-      
-      if(clock.minutes === 60 ){
-        clock.minutes = 0;
-        clock.hours ++;
-      }
+    let timerStartBtn = this.element.querySelector('.startTimer');
 
-      // if(clock.hours === 12) {
-      //   clock.hours = 0;
-      // }
-
-      
-      if(e.target.id === 'btn-hours-up'){
-        clock.hours ++;
-      } else if (e.target.id === 'btn-hours-down') {
-        clock.hours --;
-      }
-
-      if(e.target.id === 'btn-minutes-up') {
-        clock.minutes ++;
-      } else if(e.target.id === 'btn-minutes-down') {
-        clock.minutes --;
-      }
-
-      if(clock.minutes < 0) {
-        clock.minutes = 59;
-      }
-
-      if(clock.hours === 0) {
-        clock.hours = 12;
-      } 
-
-
-      clockUpdate(clock);
-
-      
-      
+    timerStartBtn.addEventListener('click', () => {
+      this.timer();
     })
+
+    return this.element;
+
+  }
+
+
+  mount(parent) {
+    parent.appendChild(this.render());
+    
+  }
+
+  timer () {
+    setInterval(() => {
+      this.update();
+      if(this.seconds <= 0) {
+        this.seconds = 60;
+        this.minutes--;
+      }
+      this.seconds --;
+    }, 1000);
+    
+  }
+
   
+  
+  update () {
+    
 
+    let hoursDigits = this.element.querySelector('#digits-hours');
+    let minutesDigits = this.element.querySelector('#digits-minutes');
+    let secondsDigits = this.element.querySelector('#digits-seconds')
+    secondsDigits.textContent = this.seconds;
+    minutesDigits.textContent = this.minutes;
+    hoursDigits.textContent = this.hoursDigits;
+  }
 
-
-
-});
-
-
+}
