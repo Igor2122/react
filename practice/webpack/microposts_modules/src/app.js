@@ -21,7 +21,6 @@ function getPosts() {
 
 // Submit post to DB
 function addPost () { //why i cannot do this with arrow function 
-    console.log('hello');
     const title = document.querySelector('#title').value;
     const body = document.querySelector('#body').value;
 
@@ -39,6 +38,7 @@ function addPost () { //why i cannot do this with arrow function
         })
         .catch(err => console.log(err))
 
-    // Delete Post 
     
 }
+
+

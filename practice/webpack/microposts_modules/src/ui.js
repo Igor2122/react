@@ -1,6 +1,7 @@
-import  Card  from './Card';
+import Card from './Card';
+
 class UI {
-    constructor () {
+    constructor() {
         this.post = document.querySelector('#posts');
         this.titleInput = document.querySelector('#title');
         this.body = document.querySelector('#body');
@@ -9,16 +10,16 @@ class UI {
         this.fromState = 'add';
     }
 
-    showPosts (posts) {
+    showPosts(posts) {
         this.post.innerHTML = '';
-        for(let post of posts){
+        for (let post of posts) {
             let card = new Card(post.id, post.title, post.body);
             card.mount(this.post);
         }
-        
+
     }
 
-    showAlert (message, parent) {
+    showAlert(message, parent) {
         let alert = document.createElement('div');
         alert.classList.add('alert', 'alert-primary');
         alert.textContent = message;
@@ -26,13 +27,20 @@ class UI {
         setTimeout(() => {
             parent.removeChild(alert);
         }, 1000);
-        
+
     }
 
-    clearFields (inputs) {
-        for(let input of inputs){
+    clearFields(inputs) {
+        for (let input of inputs) {
             input.value = '';
         }
+    }
+
+    update(id, title, body) {
+        this.id.value = id;
+        this.titleInput.value = title;
+        this.body.value = body;
+
     }
 }
 
