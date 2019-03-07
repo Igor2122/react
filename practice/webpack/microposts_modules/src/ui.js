@@ -1,20 +1,59 @@
 import Card from './Card';
+import {
+    http
+} from './http';
 
 class UI {
     constructor() {
-        this.post = document.querySelector('#posts');
-        this.titleInput = document.querySelector('#title');
-        this.body = document.querySelector('#body');
-        this.id = document.querySelector('#id');
-        this.submit = document.querySelector('.submit');
-        this.fromState = 'add';
+        this.postsContainer = document.querySelector('.postsContainer');
+        // this.titleInput = element.querySelector('#title');
+        // this.body = element.querySelector('#body');
+        // this.id = element.querySelector('#id');
+        // this.submit = element.querySelector('.submit');
+        // this.fromState = 'add';
+    }
+
+    render() {
+        this.element = document.createElement('div')
+        this.element.className = 'card card-body card-form';
+        this.element.innerHTML = `
+            <h1>Say Something</h1>
+            <div class="lead">What's on your mind</div>
+            <div class="form-group">
+            <input type="text" id="title" class="form-control" placeholder="Post Title">
+            </div>
+            <div class="form-group">
+            <textarea class="form-control" name="" id="body" cols="30" rows="10" placeholder="Post Body"></textarea>
+            </div>
+            <input type="hidden" id="id" value="">
+            <button class="post-submit btn btn-primary btn-block">Post it!</button> 
+            <span class="from-end"></span>
+        <br>
+        <div id="posts"></div>
+        `
+
+        return this.element;
+    }
+
+    mount() {
+        this.postsContainer.appendChild(this.render());
+        this.getPosts();
+    }
+
+    getPosts() {
+        console.log(http);
+        http.get('http://localhost:3000/posts')
+            .then(data => this.showPosts(data))
+            .catch(err => console.log(err));
+
     }
 
     showPosts(posts) {
-        this.post.innerHTML = '';
+        const postListParent = document.querySelector('#posts');
+        postListParent.innerHTML = '';
         for (let post of posts) {
             let card = new Card(post.id, post.title, post.body);
-            card.mount(this.post);
+            card.mount(postListParent);
         }
 
     }
@@ -44,4 +83,4 @@ class UI {
     }
 }
 
-export const ui = new UI();
+export const ui = new UI;

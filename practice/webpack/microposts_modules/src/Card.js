@@ -38,6 +38,26 @@ class Card {
         return this.element;
     }
 
+    addPost() {
+        const title = document.querySelector('#title').value;
+        const body = document.querySelector('#body').value;
+
+        const data = {
+            title,
+            body, // if the key and value are the same we can just leave it as single key/value
+        }
+
+        // Create Post
+        http.post('http://localhost:3000/posts', data)
+            .then(data => {
+                ui.showAlert('Post Added', document.querySelector('.card'));
+                ui.clearFields(document.querySelectorAll('.form-control'));
+                getPosts(); // so here we can see the newly added posts
+            })
+            .catch(err => console.log(err))
+
+    }
+
     deletePostHandler(e) {
         if (e.target.parentElement.classList.contains('delete')) {
             http.delete(`${this.urlConn}/${this.id}`)
