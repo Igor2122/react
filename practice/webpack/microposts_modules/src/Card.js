@@ -11,6 +11,8 @@ class Card {
         this.id = id;
         this.title = title;
         this.body = body;
+        this.alertDiv = document.querySelector('.alert-messages');
+        this.fromInputs = document.querySelectorAll('.form-control');
     }
 
     render() {
@@ -50,9 +52,9 @@ class Card {
         // Create Post
         http.post('http://localhost:3000/posts', data)
             .then(data => {
-                ui.showAlert('Post Added', document.querySelector('.card'));
-                ui.clearFields(document.querySelectorAll('.form-control'));
-                getPosts(); // so here we can see the newly added posts
+                ui.showAlert('Post Added', this.alertDiv, 'primary');
+                ui.clearFields(this.fromInputs);
+                ui.getPosts();
             })
             .catch(err => console.log(err))
 
@@ -63,7 +65,10 @@ class Card {
             http.delete(`${this.urlConn}/${this.id}`)
                 .then(data => {
                     http.get(this.urlConn)
-                        .then(res => ui.showPosts(res))
+                        .then(res => {
+                            ui.showPosts(res)
+                            ui.showAlert('Message Deleted', this.alertDiv, 'danger')
+                        })
                         .catch(err => console.log(err));
                 })
                 .catch(err => console.log(err));
