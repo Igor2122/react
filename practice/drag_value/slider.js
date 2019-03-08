@@ -3,6 +3,7 @@ class Slider {
     constructor() {
         this.root = document.querySelector('#app');
         this.left = 0;
+        this.dragLeft = 0;
         this.mouseDrag = false;
     }
 
@@ -16,9 +17,12 @@ class Slider {
         `;
 
         const line = this.element.querySelector('.line');
+        const handle = this.element.querySelector('.handle');
 
         line.addEventListener('mouseup', this.moveElementHandler.bind(this));
-        line.addEventListener('mousedown', this.dragMouse.bind(this));
+
+        line.addEventListener('mousemove', this.dragMouse.bind(this));
+        handle.addEventListener('mouseup', this.letGo.bind(this));
         return this.element;
     }
 
@@ -35,15 +39,23 @@ class Slider {
     }
 
     dragMouse (e) {
+        this.mouseDrag = true;
+        this.dragLeft = e.clientX;
+        console.log(this.dragLeft);
+        this.update();  
+    }
+
+    letGo (e) {
         this.mouseDrag = false;
     }
 
     update() {
         const handle = this.element.querySelector('.handle');
         const value = this.element.querySelector('.value');
-        value.textContent = this.left + ' px';
-        if(this.mouseDrag) {
-            handle.style.left = (this.left - 20) + 'px';
+        if(this.mouseDrag && this.dragLeft < 500 && this.dragLeft > 0) {
+            value.textContent = this.dragLeft + ' px';
+            // handle.style.left = (this.left - 20) + 'px';
+            handle.style.left = (this.dragLeft - 20) + 'px';
         }
     }
 }

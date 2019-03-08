@@ -20,4 +20,5 @@ body {
     border: 3px solid linen;
     background: darkblue;
     border-radius: 50%;
+    /* transition: all .1s ease; */
 }
