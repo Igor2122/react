@@ -6,11 +6,7 @@ import {
 class UI {
     constructor() {
         this.postsContainer = document.querySelector('.postsContainer');
-        // this.titleInput = element.querySelector('#title');
-        // this.body = element.querySelector('#body');
-        // this.id = element.querySelector('#id');
-        // this.submit = element.querySelector('.submit');
-        // this.fromState = 'add';
+        // json-server --watch api/db.json
     }
 
     render() {

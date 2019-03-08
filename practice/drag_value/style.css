@@ -1,0 +1,23 @@
+body {
+    background: linen;
+}
+
+.line {
+    width: 500px;
+    height: 10px;
+    background: blue;
+    border-radius: 5%;
+    position: relative;
+}
+
+.handle {
+    position: absolute;
+    z-index: 1;
+    top: -7px;   
+    left: -7px;   
+    height: 20px;
+    width: 20px;
+    border: 3px solid linen;
+    background: darkblue;
+    border-radius: 50%;
+}
